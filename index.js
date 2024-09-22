@@ -8,16 +8,16 @@ const app = express();
 const port = "3000";
 const pathfile = "public";
 const datastore = [];
-
+// file path for configuration
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+// Apply Bootsrap for styling
 app.use(
   "/bootstrap",
   express.static(path.join(__dirname, "node_modules/bootstrap/dist"))
 );
 
-// Configure multer storage
+// Configure multer storage for image upload
 const ImgStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "uploads")); // Save to the 'uploads' folder relative to the current directory
@@ -40,6 +40,7 @@ app.get("/add", (req, res) => {
   const index = req.query.index;
   const post = index !== undefined ? datastore[parseInt(index)] : null;
   res.render("add.ejs", { post, index });
+  console.log(req.query.index);
 });
 app.post("/add", upload.single("image"), (req, res) => {
   const { title, message } = req.body;
@@ -48,21 +49,23 @@ app.post("/add", upload.single("image"), (req, res) => {
   if (title && message) {
     datastore.push({ title, message, image }); // Add the post data to the array
   }
-  console.log(req.body);
   res.redirect("/");
 });
 
 // POST route to update data
 app.post("/update", upload.single("image"), (req, res) => {
   const { index, title, message } = req.body;
+
+  // Keep the old image if none is uploaded
   const image = req.file
     ? `/uploads/${req.file.filename}`
-    : datastore[parseInt(index)].image; // Keep the old image if none is uploaded
+    : datastore[parseInt(index)].image;
 
+  // Update image if new one is uploaded
   if (index && title && message) {
     datastore[parseInt(index)].title = title;
     datastore[parseInt(index)].message = message;
-    datastore[parseInt(index)].image = image; // Update image if new one is uploaded
+    datastore[parseInt(index)].image = image;
   }
 
   res.redirect("/");
@@ -72,9 +75,9 @@ app.post("/update", upload.single("image"), (req, res) => {
 app.post("/delete", (req, res) => {
   const { index } = req.body;
   if (index) {
-    datastore.splice(parseInt(index), 1); // Remove the data by index
+    // Remove the data by index
+    datastore.splice(parseInt(index), 1);
   }
-  console.log({ index });
   res.redirect("/");
 });
 
