@@ -37,7 +37,9 @@ app.get("/", (req, res) => {
   res.render("index.ejs", { datastore });
 });
 app.get("/add", (req, res) => {
-  res.render("add.ejs", { datastore });
+  const index = req.query.index;
+  const post = index !== undefined ? datastore[parseInt(index)] : null;
+  res.render("add.ejs", { post, index });
 });
 app.post("/add", upload.single("image"), (req, res) => {
   const { title, message } = req.body;
@@ -51,12 +53,18 @@ app.post("/add", upload.single("image"), (req, res) => {
 });
 
 // POST route to update data
-app.post("/update", (req, res) => {
+app.post("/update", upload.single("image"), (req, res) => {
   const { index, title, message } = req.body;
+  const image = req.file
+    ? `/uploads/${req.file.filename}`
+    : datastore[parseInt(index)].image; // Keep the old image if none is uploaded
+
   if (index && title && message) {
     datastore[parseInt(index)].title = title;
-    datastore[parseInt(index)].message = message; // Update title and message
+    datastore[parseInt(index)].message = message;
+    datastore[parseInt(index)].image = image; // Update image if new one is uploaded
   }
+
   res.redirect("/");
 });
 

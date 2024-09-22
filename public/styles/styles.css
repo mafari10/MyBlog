@@ -19,20 +19,20 @@ textarea {
   padding: 8px;
   margin-top: 8px;
 }
-.indexIntro {
+.indexIntro,
+.indexIntro a {
   display: flex;
   justify-content: center;
+  text-decoration: none;
+  color: #788291;
+  font-size: 1.4rem;
+}
+.indexIntro a:hover {
+  transition: all 3ms ease-in-out;
+  color: #395783;
+  text-decoration: underline;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 50%;
-  justify-content: center;
-
-  padding: 15px;
-}
 .centering {
   display: flex;
   align-items: center;
@@ -60,4 +60,6 @@ textarea {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
 }

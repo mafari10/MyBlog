@@ -1,8 +1,9 @@
 <%- include("partials/header.ejs") %>
 
     <body>
-        <div class="container centering">
-            <div class="wrapper">
+        <div class="container-fluid centering">
+            <div>
+                <h class="text-primary">Your Posts</h>
                 <% if (datastore.length> 0) { %>
                     <div class="card-container">
                         <% datastore.forEach((item, index)=> { %>
@@ -23,7 +24,7 @@
                                 </div>
                                 <div class="call_to_action">
                                     <!-- Update Form -->
-                                    <form action="/update" method="POST">
+                                    <form action="/add" method="get">
                                         <input type="hidden" name="index" value="<%= index %>">
                                         <input type="submit" value="Update" id="update" class="btn btn-primary">
                                     </form>
@@ -38,7 +39,7 @@
                     </div>
                     <% } else { %>
                         <h1 class="indexIntro">
-                            <a href="/add">Journey begins Here. <br> Start a post now!</a>
+                            <a href="/add">Create a new post...</a>
                         </h1>
                         <% } %>
             </div>

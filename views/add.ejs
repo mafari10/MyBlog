@@ -1,12 +1,35 @@
-<%- include("./partials/header.ejs") %>
-    <h1>Add A New Post</h1>
-    <div class="forms">
-        <form action="/add" method="post" enctype="multipart/form-data">
-            <input type="text" name="title" placeholder="Title Post">
-            <textarea name="message" id="message" placeholder="post message here max 250 chars"></textarea>
-            <input type="file" name="image" id="image">
-            <input type="submit" value="Post">
-        </form>
-    </div>
+<%- include("partials/header.ejs") %>
 
-    <%- include("./partials/footer.ejs") %>
+    <body>
+        <div class="forms">
+            <h1>
+                <%= post ? "Edit Post" : "Add a New Post" %>
+            </h1>
+            <form action="<%= post ? '/update' : '/add' %>" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="index" value="<%= index %>">
+                <div class="form-group">
+
+                    <input type="text" class="form-control" id="title" name="title"
+                        value="<%= post ? post.title : '' %>" placeholder="Post Title Here" required>
+                </div>
+                <div class="form-group">
+
+                    <textarea class="form-control" id="message" name="message" placeholder="Post Text here"
+                        required><%= post ? post.message : '' %></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="image">Upload Image</label>
+                    <input type="file" class="form-control-file" id="image" name="image">
+                    <% if (post && post.image) { %>
+                        <p>Current Image:</p>
+                        <img src="<%= post.image %>" alt="Current Image" height="100">
+                        <% } %>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <%= post ? "Update Post" : "Add Post" %>
+                </button>
+            </form>
+        </div>
+    </body>
+
+    <%- include("partials/footer.ejs") %>
