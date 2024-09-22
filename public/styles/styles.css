@@ -1,0 +1,63 @@
+textarea {
+  resize: none;
+  width: 100%;
+  margin-top: 20px;
+  padding: 8px;
+}
+.forms {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.forms form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.forms form input {
+  padding: 8px;
+  margin-top: 8px;
+}
+.indexIntro {
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  justify-content: center;
+
+  padding: 15px;
+}
+.centering {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#delete {
+  background: crimson;
+  padding: 8px;
+  font-size: medium;
+}
+#delete:hover {
+  background: rgb(160, 53, 74);
+  transition: all ease-in-out 3ms;
+}
+#update {
+  background: #3586ff;
+  padding: 8px;
+  font-size: medium;
+}
+#update:hover {
+  background: #6f9de2;
+  transition: all ease-in-out 3ms;
+}
+.card-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
